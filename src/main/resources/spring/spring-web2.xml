@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!-- 处理器映射器  基于注解的处理器  -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
+	<!-- 处理器适配器  基于注解的处理器适配器-->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
+	
+	<!-- Spring MV的注解驱动,帮我们配置了映射器,适配器,还配置了参数绑定 -->
+	<mvc:annotation-driven/>
+	
+	<!-- 处理器  -->
+	<!-- 使用组件扫描器, Spring会扫描指定包下的标注了@Controller的类进行实例化  -->
+	<context:component-scan base-package="com.yidu.spring004.controller"/>
+	
+	<!-- 视图解析器  -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置视图的前缀 -->
+		<!-- <property name="prefix" value=""></property> -->
+		<!-- 配置视图的后缀名  -->
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	
+</beans>
+
+
+

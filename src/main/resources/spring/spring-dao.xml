@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd ">
+	
+	<!-- 2.配置数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" >
+		<!-- 数据源中必须属性 -->
+		<property name="driverClass" value="${jdbc.driver}"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+		<property name="user" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<!-- 数据源中可选属性... -->
+	</bean>
+	
+	<!-- 3.配置SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 配置依赖属性  数据源 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 配置依赖属性:mybatis主配置文件路径 -->
+		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"/>
+	</bean>
+	
+	<!-- 4.配置数据访问对象 -->
+	<!-- <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		配置数据访问对象实现的接口
+		<property name="mapperInterface" value="com.yidu.spring.spring003.base.dao.UserDao"/>
+		配置会话工厂
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean> -->
+	
+	<!-- 4.通过扫包批量配置数据访问对象 
+		注意:这里不需指定id属性,spring会自动生成bean的id,与接口名类似,如XxxDao...xxxDao 
+	-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 配置依赖属性:要扫描的包 -->
+		<property name="basePackage" value="com.yidu.spring004.dao"/>
+		<!-- 配置依赖属性: 会话工厂 -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+	
+	
+</beans>
+
+
+

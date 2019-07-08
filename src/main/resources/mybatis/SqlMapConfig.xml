@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <!-- Mybatis配置 -->
+ <configuration>
+ 	<!-- 1.MyBatis的运行方式配置 -->
+ 	<settings>
+ 		<!-- 开启二级缓存 -->
+ 		<setting name="cacheEnabled" value="true"/>
+ 		<!-- 开启懒加载 -->
+ 		<setting name="lazyLoadingEnabled" value="true"/>
+ 		<!-- 是否积极加载类属性   -->
+ 		<setting name="aggressiveLazyLoading" value="fales"/>
+ 	</settings>
+ 	
+ 	<!-- 2.定义别名 -->
+ 	<typeAliases>
+ 		<!-- 扫包,自动将该包下所有类的别名为类名 -->
+ 		<package name="com.yidu.spring004.domain"/>
+ 		<!-- <package name="com.yidu.spring.spring003.sysmanagement.domain"/> -->
+ 	</typeAliases>
+ 	
+ 	<!-- 3.关联映射文件 -->
+ 	<mappers>
+ 		<package name="com.yidu.spring004.dao"/>
+ 		<!-- <package name="com.yidu.spring.spring003.sysmanagement.dao"/> -->
+ 	</mappers>
+
+ </configuration>

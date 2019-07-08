@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.yidu.spring004.dao.UserDao">
+	<select id="findAllUser" resultType="UserTest">
+		select * from t_user2
+	</select>
+	
+	<!-- <select id="findUserById" parameterType="String" resultType="User">
+		select * from scott.t_user2 where userId = #{userId}
+	</select>
+	
+	<select id="findUserByRoleId" parameterType="String" resultType="User">
+		select u.* from scott.t_user2 u where u.roleId = #{roleId}
+	</select> -->
+	
+	
+	
+	<!-- UserRM -->
+	<!-- <resultMap type="User" id="userRM"> -->
+		<!-- 用于映射表的主键字段和类的主键属性   -->
+		<!-- <id property="userId" column="userId" javaType="String"/> -->
+		<!-- 用于映射普通属性   -->
+		<!-- <result property="userName" column="userName" javaType="String"/>
+		<result property="password" column="password" javaType="String"/>
+		<result property="phoneNum" column="phoneNum" javaType="String"/>
+		<result property="isUsable" column="isUsable" javaType="String"/>
+		<result property="userDesc" column="userDesc" javaType="String"/>
+	</resultMap> -->
+	
+	<!-- 结果映射 -->
+	<!-- <resultMap type="User" id="UserWithRoleRM" extends="userRM"> -->
+		<!-- 主类继承userRM -->
+		<!-- 用于映射一对一属性  -->
+		<!-- <association property="role" column="roleId" javaType="Role" >
+			<id property="roleId" column="roleId" javaType="String"/>
+			<result property="roleName" column="roleName" javaType="String"/>
+			<result property="roleAbbr" column="roleAbbr" javaType="String"/>
+		</association>	
+	</resultMap> -->
+	
+	<!-- 关联映射:嵌套查询  -->
+	<!-- <select id="findAllUserWithRole" resultMap="UserWithRoleRM">
+		select u.*, r.roleName, r.roleAbbr
+		from scott.t_user2 u, scott.t_role2 r
+		where u.roleId = r.roleId
+	</select> -->
+	
+	<!-- <select id="findUserWithRoleById" parameterType="String" resultMap="UserWithRoleRM">
+		select u.*, r.roleName, r.roleAbbr
+		from scott.t_user2 u, scott.t_role2 r
+		where u.roleId = r.roleId and userId = #{userId}
+	</select> -->
+	
+	<!--    分割线      -->
+	
+	<!-- 嵌套查询 -->
+	<!-- <resultMap type="User" id="LazyUserWithRoleRM" extends="userRM">
+		<association property="role" column="roleId" javaType="Role" select="com.yidu.newbie.dao.RoleDao.findRoleByRoleId">
+		</association>
+	</resultMap> -->
+	
+	<!-- 关联映射:嵌套查询  -->
+	<!-- <select id="findAllUserWithRoleLazyLoading" resultMap="LazyUserWithRoleRM">
+		select * from scott.t_user2 
+	</select> -->
+	
+	<!-- <select id="findRoleByRoleId" parameterType="String" resultType="Role">
+		select * from scott.t_role2 where roleId = #{roleId}
+	</select> -->
+	
+</mapper>

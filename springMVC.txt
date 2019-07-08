@@ -1,0 +1,118 @@
+SpringMVC
+1. SpringMVC的工作原理
+  1) 客户端发送请求被前端控制器(DispatcherServlet)拦截
+  2) 前端控制器将请求URL转给处理器映射器(handlerMapping)
+  3) 处理器映射器解析请求,返还处理器执行链(handlerExcutionChain)给前端控制器
+  4) 前端控制器调用处理器适配器(HandlerAdapter)来执行处理器
+  5) 处理器适配器执行处理器(Handler)
+  6) 处理器执行合适的应答方法,返还ModelAndView给处理器适配器
+  7) 处理器适配器将ModelAndView返还给前端控制器
+  8) 前端控制器调用视图解析器ViewResolver进行解析
+  9) 视图解析器将view返还给前端控制器
+  10) 前端控制器进行渲染(填充数据)
+  11) 生成响应,返回给客户端
+
+2. SpringMVC中的组件
+1) DispatcherServlet  前端控制器  --用到门面模式
+  作用: 接收请求,调用合适的组建进行处理,然后给出响应.  --降低各个组件间的耦合度.
+  
+2) HandlerMapping  处理器映射器
+  作用: 解析请求URL,找到合适的处理器
+  http://localhost:8080/xxx/index.jsp
+  
+3) HandlerAdapter 处理器适配器  --用到适配器模式
+  作用: 按照特定的规则执行Handler
+  
+4) Handler  处理器|后端控制器  程序员完成
+  作用: 调用合适的模型(业务逻辑层等)完成请求
+  
+5) ViewResolver 视图解析器
+  作用:将数据进行绑定,解析生成物理视图
+  
+6) View 视图  程序员完成
+  作用: 以合理的形式呈现数据
+  
+3. 第一个SpringMVC应用
+1) 导入jar包
+  四个核心继承包和依赖包: core,context,beans,expression,commons-logging
+ web层jar包: spring-web,spring-webmvc
+  
+2) 配置前端控制器
+  SpringMVC前端控制器的映射
+  a. *.action --前端控制器会拦截所有以action结尾的请求
+  b. /* --前端控制器会拦截所有请求(请求动态资源和静态资源)
+  c. /  --前端控制器会拦截所有动态请求,这种配置可以实现Restful风格的url
+  
+  http://域名(IP):端口号/项目名/资源名?查询参数
+  
+restful  --项目的一种架构模式
+  http://域名(IP):端口号/项目名/(模块名)/user GET 查询所有用户
+  http://域名(IP):端口号/项目名/user/id GET 查询指定用户
+  http://域名(IP):端口号/项目名/user DELETE 删除所有用户
+  http://域名(IP):端口号/项目名/user/id DELETE 删除指定用户
+  http://域名(IP):端口号/项目名/user/... POST 添加用户
+  http://域名(IP):端口号/项目名/user/ PUT 修改用户
+
+3) 配置spring-web.xml
+
+4) 编写处理器 
+	SimpleControllerHandlerAdapter  要求处理器必须实现Controller接口
+	
+5) 编写视图
+
+-----------------------------------------------------------------------------
+基于注解的spring MVC
+1.配置适配器和映射器
+spring-web2.xml引入spring-mvc的schema,然后配置:<mvc:annotation-driven/>
+
+2.开发一个控制器
+@Controller  将一个类标注为springMVC的处理器(后端控制器)
+
+@Autowired 标注在类的成员变量上,Spring会自动将该属性进行自动注入.
+    前提条件是: Spring容器中应该存在该成员变量对应的对象 
+    --依赖对象可以基于XML配置,也可以基于注解配置@Component
+  注意: 最佳实践,在控制器上加@Controller,在业务类上加@Component,在配置文件中扫包
+  <context:component-scan base-package="要扫描的包"/>
+
+@RequestMapping  
+  1)可以作用在方法上面,完成该方法的URL映射.
+	一般来说,一个方法映射一个URL地址
+	控制器中可以有方法不加@RequestMapping,那么这些方法客户端不能直接访问.
+	
+  2)标注在控制器类上,用来给控制器中的方法添加父路径
+  	
+3.配置处理器
+  扫包完成
+	<context:component-scan base-package="com.yidu.spring004.controller"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
